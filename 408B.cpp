@@ -38,13 +38,34 @@ void fastIO() {
 
 
 signed main() {
-    fastIO();
-
-    int t = 1;
-    cin >> t;
-    while (t--) {
-     
+    
+     string s1;
+	cin >> s1;
+	string s2;
+	cin >> s2;
+    map<char,int>m1;
+    map<char,int>m2;
+    for(int i=0;i<s1.size();++i){
+        m1[s1[i]]++;
+    }
+	 for(int i=0;i<s2.size();++i){
+        m2[s2[i]]++;
+    }
+    int ans =0;
+    for(char i='a';i<='z';++i){
+        ans+=min(m1[i],m2[i]);
+        if(m1[i]==0 && m2[i]!=0){
+            ans=-1;
+            break;
+        }
+    }
+    if(ans<=0){
+        cout << -1 << endl;
+    }
+    else{
+        cout << ans << endl;
+    }
+	
     }
 
-    return 0;
-}
+    
