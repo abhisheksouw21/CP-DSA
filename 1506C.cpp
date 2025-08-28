@@ -39,10 +39,23 @@ void fastIO() {
 
 signed main() {
     fastIO();
+
+    int t;
     cin >> t;
     while (t--) {
-     
-    }
+     string s1,s2;
+     cin >> s1 >> s2;
+     int ans =0;
+        for(int len=1;len<=min(s1.size(),s2.size());len++){
+           for(int i=0;i+len<=s1.size();++i){
+                for(int j=0;j+len<=s2.size();++j){
+                     if(s1.substr(i,len)==s2.substr(j,len)){
+                          ans = max(ans,len);
+                     }
+                }
+           }
+        }
+        cout << s1.size()+s2.size()-2*ans << endl;
 
-    return 0;
+}
 }
