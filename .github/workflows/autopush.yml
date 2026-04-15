@@ -1,0 +1,41 @@
+name: LeetCode Auto-Pusher
+
+# Run this script daily at 00:00 UTC, and also allow manual triggering from the GitHub UI
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write # Needed so the script can push code back to the repository
+
+jobs:
+  fetch-and-push:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          # Check out the main branch explicitly so GitPython can cleanly push to it
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Configure Git User
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Run Fetcher Script
+        env:
+          # Pulling securely from GitHub Repository Secrets
+          LEETCODE_SESSION_COOKIE: ${{ secrets.LEETCODE_SESSION_COOKIE }}
+          LEETCODE_CSRF_TOKEN: ${{ secrets.LEETCODE_CSRF_TOKEN }}
+        run: python fetch_leetcode.py
