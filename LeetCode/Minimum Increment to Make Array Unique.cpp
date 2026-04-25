@@ -4,11 +4,17 @@ public:
        sort(nums.begin(),nums.end());
        int ans=0;
        for(int i=1;i<nums.size();++i){
-        if(nums[i] <= nums[i-1]){
-                int needed = nums[i-1] + 1;
-                ans += (needed - nums[i]);
-                nums[i] = needed;
-            }
+        if(nums[i-1]==nums[i]){
+            nums[i]++;
+            ans++;
+        }
+       else if(nums[i-1]>nums[i]){
+          ans+= (nums[i-1]-nums[i])+1;
+          nums[i]+=(nums[i-1]-nums[i])+1;
+        }
+        else {
+            continue;
+        }
        }
        return ans; 
     }
