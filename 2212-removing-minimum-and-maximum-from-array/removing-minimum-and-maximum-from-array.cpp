@@ -1,6 +1,7 @@
 class Solution {
 public:
     int minimumDeletions(vector<int>& nums) {
+        // approch kuch nahi he isme
        int mx=INT_MIN;
        int n=nums.size();
        int a=0;
@@ -16,10 +17,7 @@ public:
                a=i;
             }
         }
-        if(nums.size()==1) return 1;
-        if(a==b){
-            return min(a+1,n-1-a+1);
-        }
+        
         if(a>b) swap(a,b);
         int x= b+1;
         int y=n-1-a+1;
